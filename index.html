@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDoList</title>
+    <link rel="icon" type="image/png" href="image.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+</head>
+
+<body class="light">
+
+
+    <!-- MAIN LAYOUT WRAPPER -->
+<div class="container">
+
+    <!-- LEFT SIDE -->
+    <div class="left">
+        <div class="card">
+
+            <form>
+                <input id="taskName" type="text" placeholder="Enter Task Name">
+            </form>
+
+    <form>
+        <select class="select" id="select">
+            <option value="false">Select Priority</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+        </select>
+    </form>
+
+    <form>
+        <input id="taskDate" type="date">
+    </form>
+
+            <form>
+                <input id="description" type="text" placeholder="Enter description">
+                <input id="submit" type="button" value="Assign">
+            </form>
+
+        </div>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="right">
+        <h1>Tasks</h1>
+        <div class="tasks" id="tasks-container"></div>
+    </div>
+
+</div>
+
+    <script src="main.js"></script>
+</body>
+</html>
