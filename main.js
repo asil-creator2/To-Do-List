@@ -22,7 +22,7 @@ let make = {
             this.taskElement.innerHTML = "";
             this.tasks.forEach(task => {
                 this.taskElement.innerHTML += `
-                    <div class="task">
+                    <div class="task ${task.priorty}">
                         <div class="task-left">
                             <input type="checkbox" class="task-check">
                             <p class="task-text">${task.title}</p>
@@ -120,7 +120,7 @@ let make = {
         if (this.description.value === '') return alert('Please Type Description');
 
         this.taskElement.innerHTML += `
-            <div class="task">
+            <div class="task ${this.priorty.value}">
                 <div class="task-left">
                     <input type="checkbox" class="task-check" >
                     <p class="task-text">${this.title.value}</p>

@@ -282,3 +282,34 @@ body.dark .mode-btn:hover {
     flex-direction: column;
     gap: 15px;   /* <— This will finally create the gap you want */
 }
+
+/* Task Card */
+/* TASK CARD BASE STYLE */
+.task {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-left: 6px solid transparent;
+    transition: 0.2s ease;
+}
+
+.task:hover {
+    transform: translateY(-3px);
+}
+
+/* Border by priority */
+.task.low {
+    border-left-color: var(--low-color);
+}
+.task.medium {
+    border-left-color: var(--medium-color);
+}
+.task.high {
+    border-left-color: var(--high-color);
+}
