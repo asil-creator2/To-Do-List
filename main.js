@@ -38,19 +38,22 @@ let make = {
                     </div>
                 `;
             });
-            this.delete();  
-            this.check()
         }
     },
-
     delete : function (){
         let deleteBtns = document.querySelectorAll(".delete-btn");
 
         deleteBtns.forEach((icon, index) => {
             icon.addEventListener("click", () => {
-                icon.closest(".task").remove();
-                this.tasks.splice(index, 1);
-                localStorage.setItem("tasks", JSON.stringify(this.tasks));
+                let sure = confirm("Do you want to delete this task ? (Note: This action can't be undone)");
+                if (sure){
+                    icon.closest(".task").remove();
+                    this.tasks.splice(index, 1);
+                    localStorage.setItem("tasks", JSON.stringify(this.tasks));
+                }
+                else {
+                    return;
+                }
             });
         });
     },
@@ -61,53 +64,67 @@ let make = {
         this.date.value = '';
         this.description.value = '';
     },
-    edit : function (){
-        let editButtons = document.querySelectorAll(".edit-btn")
-        let btn = document.getElementById("submit")
-        // بنمشي في كل button 
-        editButtons.forEach((button , index) => {
-            button.onclick = () =>{
-                this.title.value = this.tasks[index].title
-                this.date.value = this.tasks[index].date
-                this.priorty.value = this.tasks[index].priorty
-                this.description.value = this.tasks[index].description
-                btn.value = 'Save'
+    edit: function () {
+        const btn = document.getElementById("submit");
+        const titleEl = document.getElementById("taskName");
+        const priortyEl = document.getElementById("select");
+        const dateEl = document.getElementById("taskDate");
+        const descEl = document.getElementById("description");
+
+        let editButtons = document.querySelectorAll(".edit-btn");
+
+        editButtons.forEach((button, index) => {
+            button.onclick = () => {
+                // populate form inputs with the task data
+                titleEl.value = this.tasks[index].title;
+                dateEl.value = this.tasks[index].date;
+                priortyEl.value = this.tasks[index].priorty;
+                descEl.value = this.tasks[index].description;
+
+                // change button to Save mode
+                btn.value = 'Save';
+
+                // set save handler (replaces previous onclick)
                 btn.onclick = () => {
-                    // بنعملهم ابديت
-                    this.title = document.getElementById("taskName");
-                    this.priorty = document.getElementById("select");
-                    this.date = document.getElementById("taskDate");
-                    this.description = document.getElementById("description");
+                    // validations
+                    if (titleEl.value === '') return alert('Please Enter Title');
+                    if (priortyEl.value === 'false') return alert('Please Choose Priority');
+                    if (dateEl.value === '') return alert('Please Choose the date');
+                    if (descEl.value === '') return alert('Please Type Description');
 
-                    // الحالات 
-                    if (this.title.value === '') return alert('Please Enter Title');
-                    if (this.priorty.value === 'false') return alert('Please Choose Priority');
-                    if (this.date.value === '') return alert('Please Choose the date');
-                    if (this.description.value === '') return alert('Please Type Description');
+                    // update task
+                    this.tasks[index].title = titleEl.value;
+                    this.tasks[index].date = dateEl.value;
+                    this.tasks[index].priorty = priortyEl.value;
+                    this.tasks[index].description = descEl.value;
 
-                    // بنسيفهم
-                    this.tasks[index].title = this.title.value
-                    this.tasks[index].date = this.date.value
-                    this.tasks[index].priorty = this.priorty.value
-                    this.tasks[index].description = this.description.value
-
-                    // بنسيفهم في ال local storage
+                    // save 
                     localStorage.setItem("tasks", JSON.stringify(this.tasks));
-
-                    // نرجع الموقع زي ما كان
                     this.taskElement.innerHTML = "";
                     this.loadTasks();
+
                     this.check();
                     this.delete();
                     this.edit();
-                    btn.value = "Assign";
-                    this.clear();
-                    btn.onclick = make.makeTask.bind(make);
-                }
 
-            }
-        })
+                    // clear form inputs
+
+                    // restore button text
+                    btn.value = "Assign";
+                    titleEl.value = ''
+                    dateEl.value = ''
+                    priortyEl.value = 'false'
+                    descEl.value = ''
+
+                    // restore submit handler
+                    btn.onclick = () => make.makeTask();
+
+                    alert('Task Was Edited Successfully 🎉');
+                };
+            };
+        });
     },
+
     makeTask : function () {
         this.title = document.getElementById("taskName");
         this.priorty = document.getElementById('select');
@@ -135,6 +152,7 @@ let make = {
                 </div>
             </div>
         `;
+        alert('The Task was added succesfully 🎉')
         this.check()
 
         let task = {
@@ -146,9 +164,8 @@ let make = {
 
         this.tasks.push(task);
         localStorage.setItem('tasks', JSON.stringify(this.tasks));
-
-        this.delete()
         this.edit()
+        this.delete();
         this.clear();
     }
 };
