@@ -313,3 +313,28 @@ body.dark .mode-btn:hover {
 .task.high {
     border-left-color: var(--high-color);
 }
+/* ---------------- DARK MODE (TASK CARD) ---------------- */
+
+body.dark .task {
+    background: var(--card-dark);          /* Dark card background */
+    border-color: var(--border-dark);      /* Card border */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+/* Dark mode priority borders */
+body.dark .task.low {
+    border-left-color: var(--low-color);
+}
+body.dark .task.medium {
+    border-left-color: var(--medium-color);
+}
+body.dark .task.high {
+    border-left-color: var(--high-color);
+}
+
+/* Task text */
+body.dark .task-text {
+    color: var(--text-dark);
+}
+
+body.dark .
